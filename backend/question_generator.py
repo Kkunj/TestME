@@ -5,18 +5,39 @@ from dotenv import load_dotenv
 
 load_dotenv()  # ← this reads your .env into os.environ
 
-
 # Best practice: Store your API key as an environment variable
-# For testing, you can replace os.environ.get("OPENROUTER_API_KEY") directly,
-# but avoid hardcoding keys in production code.
 router_key = os.getenv("OPENROUTER_API_KEY")
 if not router_key:
-    raise RuntimeError("Missing OPENROUTER_API_KEY in environment")
+    raise RuntimeError("Missing OPENROUTER_API_KEY in environment variables")
+
+# Validate API key format
+if not router_key.startswith("sk-or-v1-"):
+    print("Warning: API key doesn't match expected OpenRouter format")
+    print(f"Current key starts with: {router_key[:10]}...")
 
 client = openai.OpenAI(
     api_key=router_key,
     base_url="https://openrouter.ai/api/v1"
 )
+
+def test_api_connection():
+    """Test if the API key is working"""
+    try:
+        # Make a simple test call
+        response = client.chat.completions.create(
+            model="deepseek/deepseek-r1-0528-qwen3-8b:free",
+            messages=[{"role": "user", "content": "Test"}],
+            max_tokens=10
+        )
+        print("✅ API connection successful!")
+        return True
+    except openai.AuthenticationError as e:
+        print(f"❌ Authentication Error: {e}")
+        print("Please check your OpenRouter API key")
+        return False
+    except Exception as e:
+        print(f"❌ API Error: {e}")
+        return False
 
 def generate_mcqs(keywords, num_questions=10):
     """
@@ -29,6 +50,10 @@ def generate_mcqs(keywords, num_questions=10):
     Returns:
         list: List of dictionaries containing MCQs with answers
     """
+    
+    # Test API connection first
+    if not test_api_connection():
+        return None
     
     # Convert keywords list to string
     keywords_str = ", ".join(keywords)
@@ -88,6 +113,10 @@ def generate_mcqs(keywords, num_questions=10):
         print(f"Error parsing JSON response: {e}")
         print(f"Raw response: {response.choices[0].message.content}")
         return None
+    except openai.AuthenticationError as e:
+        print(f"Authentication Error: {e}")
+        print("Please verify your OpenRouter API key is correct")
+        return None
     except openai.APIError as e:
         print(f"OpenAI API returned an API Error: {e}")
         return None
@@ -142,7 +171,12 @@ if __name__ == "__main__":
     # Define your keywords here
     keywords = ['iaas service', 'infrastructure platform', 'software applications', 'components', 'frameworks', 'storage', 'servers', 'control focus', 'solutions', 'resources', 'configurations', 'automatic updates', 'automatic', 'environments', 'data', 'platform', 'updates', 'high infrastructure', 'configuration', 'management', 'virtual machines', 'virtual', 'machines', 'networks', 'beanstalk', 'workspace', 'google compute', 'google', 'compute', 'virtualized platform', 'virtualized', 'engine', 'compute resources', 'host', 'service', 'web apps', 'apps', 'applications communication tools', 'machines applications', 'communication tools', 'applications communication', 'model', 'administrators', 'devops', 'architects', 'development cycles', 'accessible', 'businesses', 'disadvantages', 'expertise', 'infrastructure customization', 'customization', 'risks', 'dependency', 'oauth', 'application https', 'xen', 'django', 'jenkins', 'tools jenkins', 'complete', 'hardware', 'testing', 'hosting complex', 'complex']
     
-    print("Generating MCQs for keywords:", ", ".join(keywords))
+    print("Environment check:")
+    print(f"API Key found: {'Yes' if router_key else 'No'}")
+    if router_key:
+        print(f"API Key starts with: {router_key[:15]}...")
+    
+    print("\nGenerating MCQs for keywords:", ", ".join(keywords[:5]), "...")
     print("Please wait...")
     
     # Generate MCQs
