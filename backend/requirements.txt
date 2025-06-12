@@ -1,6 +1,8 @@
 ﻿Flask==2.3.3
 Flask-Cors==4.0.0
 gunicorn==23.0.0
+numpy==1.23.5
+thinc==8.1.10
 Werkzeug==2.3.7            # comes with Flask but safe to pin
 pypdf==5.6.0               # if pdfextractor uses PyPDF2/pypdf
 rake-nltk==1.0.6           # if keywords_extractor uses RAKE via NLTK
