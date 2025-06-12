@@ -1,14 +1,20 @@
 import openai
 import os
 import json
+from dotenv import load_dotenv
+
+load_dotenv()  # ← this reads your .env into os.environ
+
 
 # Best practice: Store your API key as an environment variable
 # For testing, you can replace os.environ.get("OPENROUTER_API_KEY") directly,
 # but avoid hardcoding keys in production code.
-OPENROUTER_API_KEY = "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"  # Replace with your actual key
+router_key = os.getenv("OPENROUTER_API_KEY")
+if not router_key:
+    raise RuntimeError("Missing OPENROUTER_API_KEY in environment")
 
 client = openai.OpenAI(
-    api_key=OPENROUTER_API_KEY,
+    api_key=router_key,
     base_url="https://openrouter.ai/api/v1"
 )
 
