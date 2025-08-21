@@ -24,7 +24,7 @@ The application follows a systematic pipeline:
    - Saves extraction results as JSON with timestamps
 
 2. **Keyword Extraction** (`keywords_extractor.py`)
-   - Analyzes extracted text using AI to identify important keywords and concepts
+   - Analyzes extracted text using YAKE, RAKE, and Spacy tools to identify important keywords and concepts
    - Filters keywords based on relevance scores (default threshold: 0.35)
    - Generates up to 5 top keywords per section
 
