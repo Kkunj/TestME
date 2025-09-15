@@ -1,6 +1,6 @@
 # PDF to MCQ Generator
 
-A Python-based application that automatically extracts text from PDF documents, identifies key concepts, and generates multiple-choice questions (MCQs) for educational purposes. The application uses AI-powered keyword extraction and question generation to create meaningful assessments from any PDF content.
+A Python-based application that automatically extracts text from PDF documents, formulate key words, and generates multiple-choice questions (MCQs) for educational purposes. The application uses AI-powered question generation to create meaningful assessments from any PDF content.
 
 ## 🌐 Live Demo
 
@@ -9,9 +9,8 @@ A Python-based application that automatically extracts text from PDF documents, 
 ## 📋 Features
 
 - **PDF Text Extraction**: Structured text extraction from PDF documents
-- **Intelligent Keyword Extraction**: AI-powered identification of key concepts and terms
+- **Keyword Extraction**: statiscal model based identification of key concepts and terms
 - **Automatic MCQ Generation**: Creates multiple-choice questions based on extracted keywords
-- **Flexible Configuration**: Customizable number of questions and keyword filtering
 - **JSON Output**: Structured data export for easy integration
 - **Web Interface**: Flask-based web application for easy interaction
 
