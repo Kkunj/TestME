@@ -102,7 +102,7 @@ pdf-mcq-generator/
 ## 🔄 Processing Pipeline
 
 1. **Upload PDF** → Text extraction with structured formatting
-2. **Extract Keywords** → AI identifies key concepts (top 5 per section)
+2. **Extract Keywords** → Statiscal models identifies key concepts/keywords (top 5 per section)
 3. **Filter Keywords** → Relevance-based filtering (threshold: 0.35)
 4. **Generate MCQs** → AI creates multiple-choice questions (default: 10)
 5. **Export Results** → JSON files with timestamps for all stages
@@ -115,12 +115,6 @@ You can customize the processing by modifying parameters in `overall_flow.py`:
 - **Keyword threshold**: Modify the `0.35` value in `filter_keywords_from_file()`
 - **Number of MCQs**: Adjust the `10` parameter in `generate_mcqs()`
 
-## 🤖 AI Integration
-
-The application leverages:
-- **DeepSeek Model**: Advanced AI for keyword extraction and question generation
-- **OpenRouter API**: Reliable API gateway for AI model access
-- **Structured Prompting**: Optimized prompts for educational content generation
 
 ## 📊 Output Format
 
@@ -142,9 +136,6 @@ All outputs are saved as JSON files with timestamps:
 
 Contributions are welcome! Please feel free to submit issues, feature requests, or pull requests.
 
-## 📝 License
-
-This project is open source. Please check the license file for details.
 
 ## 🔗 Links
 
