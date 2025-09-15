@@ -11,4 +11,6 @@ openai==1.84.0             # if question_generator calls OpenAI’s API
 python-dotenv==1.1.0       # if you load env vars locally
 yake>=0.4.8
 spacy==3.5.1
+scikit-learn
 en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.5.0/en_core_web_sm-3.5.0-py3-none-any.whl
+
